@@ -18,7 +18,7 @@ import {
 } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../services/books";
-import { setQuery } from "../../store/booksReducer";
+import { setCurrentPage, setQuery } from "../../store/booksReducer";
 import { lightGreen } from "../../constants/colors";
 // обычный импорт выдает ошибку
 const Logo = require("../../images/logo.svg");
@@ -33,7 +33,8 @@ export const Header = () => {
     searchValue.trim() == ""
       ? alert("Please, enter correct data.")
       : dispatch(getBooks(1, searchValue.replace(/\s/g, "").toLowerCase())) &&
-        dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase()));
+        dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase())) &&
+		  dispatch(setCurrentPage(1));
   };
 
   const toggleIsOpen = () => {
