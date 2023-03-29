@@ -7,4 +7,4 @@ export interface IBook {
   url: string;
 }
 
-export type BookInfo = Omit<IBook, 'subtitle' | 'url'> 
+export type BookInfo = Omit<IBook, "subtitle" | "url">;

@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import React from "react";
 import { Header } from "./components/Header";
 import { BooksList } from "./components/BooksList";
-import { BrowserRouter } from "react-router-dom";
-import { Route, Routes } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
     <>
       <Header />
-
-		<BrowserRouter>
-		<Routes>
-			<Route path='/' element={<BooksList />}></Route>
-		</Routes>
-		</BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<BooksList />}></Route>
+          <Route path="/categories" element={<div></div>}></Route>
+          <Route path="/basket" element={<div></div>}></Route>
+          <Route path="/categories" element={<div></div>}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
