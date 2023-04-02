@@ -5,8 +5,7 @@ import {
   StyledLoaderText,
   StyledLoaderWrapper,
 } from "./styles";
-// обычный импорт выдает ошибку
-const Logo = require("../../images/logo.svg");
+import Logo from "../../images/logo.svg";
 
 export const Loading = () => {
   return (

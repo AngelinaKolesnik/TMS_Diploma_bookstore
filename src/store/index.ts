@@ -1,15 +1,13 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
-import { bookReducer } from "./booksReducer";
-import { applyMiddleware } from "@reduxjs/toolkit";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
+import { bookReducer } from "./reducers/booksReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import uiReducer from "./uiSlice";
 
-export const rootReducer = combineReducers({
-  books: bookReducer,
-});
+export const store = configureStore({
+	reducer: {
+		books: bookReducer,
+		ui: uiReducer,
+	},
+ })
 
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+export type RootStore = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

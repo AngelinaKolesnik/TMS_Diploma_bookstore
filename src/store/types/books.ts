@@ -1,0 +1,6 @@
+export enum BookActionTypes {
+	SET_BOOKS = 'SET_BOOKS',
+	SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+	SET_QUERY = 'SET_QUERY',
+	SET_IS_LOADING = 'SET_IS_LOADING',
+ }

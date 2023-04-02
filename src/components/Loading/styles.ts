@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { logoGreen } from "../../constants/colors";
 
 export const StyledLoaderContainer = styled.div`
   width: 100vw;
@@ -27,7 +26,7 @@ export const StyledLoaderImage = styled.img`
 
 export const StyledLoaderText = styled.p`
   font-size: 36px;
-  color: ${logoGreen};
+  color: ${(props) => props.theme.logoGreen};
   font-weight: 600;
   font-style: italic;
   margin: 24px 0 0;
