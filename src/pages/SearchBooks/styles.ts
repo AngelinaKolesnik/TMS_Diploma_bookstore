@@ -8,3 +8,12 @@ export const ListOfBooks = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 `;
+
+export const SearchZeroText = styled.p`
+  font-size: 32px;
+  font-weight: 600;
+  color: ${(props) => props.theme.darkGreen};
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+`;

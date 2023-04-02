@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   display: flex;
   height: 150px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   background: linear-gradient(
     90deg,
     ${(props) => props.theme.greenish} 7%,
