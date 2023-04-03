@@ -1,28 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Loading } from "../Loading";
 import { BookInfo } from "../../interfaces";
-import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from "../../store/actionCreators";
+import { useDispatch } from "react-redux";
 import { Book } from "../Book";
-import {
-  setCurrentPage,
-  setIsLoading,
-} from "../../store/actionCreators/booksActions";
+import { setCurrentPage } from "../../store/actionCreators/booksActions";
 import { Pagination } from "@mui/material";
 import { ListOfBooks } from "./styles";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, currentPage, totalCount, query, isLoading } = useSelector(
-    (store: any) => store.books
+  const { books, currentPage, totalCount, isNew, isLoading } = useTypedSelector(
+    (store) => store.books
   );
 
-  const pagesCount = Math.ceil(totalCount / 10); // с сервера приходит массив из 10 объектов
-
-  useEffect(() => {
-    dispatch(setIsLoading(true));
-    dispatch(getBooks(currentPage, query));
-  }, [currentPage]);
+  // an array of 10 objects comes from the server
+  // starting from page 101, the first page is returned
+  const getPagesCount =
+    Math.ceil(totalCount / 10) <= 100 ? Math.ceil(totalCount / 10) : 100;
 
   const onChangePage = (e: React.ChangeEvent<any>, pageNumber: number) => {
     dispatch(setCurrentPage(pageNumber));
@@ -30,7 +25,6 @@ export const BooksList = () => {
 
   return (
     <>
-      {!books.length && <h2>Nothing found, please enter another query.</h2>}
       {isLoading ? (
         <Loading />
       ) : (
@@ -45,15 +39,15 @@ export const BooksList = () => {
           ))}
         </ListOfBooks>
       )}
-      {!!books.length && (
+      {!isLoading && !!books.length && isNew === false && totalCount > 10 && (
         <Pagination
           sx={{ display: "flex", justifyContent: "center" }}
           size="large"
           onChange={onChangePage}
-          defaultPage={1}
+          defaultPage={currentPage}
           siblingCount={2}
           boundaryCount={2}
-          count={pagesCount}
+          count={getPagesCount}
           showFirstButton
           showLastButton
         />

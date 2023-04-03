@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   display: flex;
   height: 150px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   background: linear-gradient(
     90deg,
     ${(props) => props.theme.greenish} 7%,
@@ -27,4 +28,8 @@ export const MenuWrap = styled.div`
 
 export const MenuItems = styled.ul`
   display: flex;
+`;
+
+export const SearchLink = styled(Link)`
+  text-decoration: none;
 `;

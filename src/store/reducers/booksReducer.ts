@@ -1,11 +1,12 @@
-import { BookActionTypes } from '../types/books';
+import { BookActionTypes } from "../types/books";
 
 const defaultState = {
   books: [],
   currentPage: 1,
   totalCount: 0,
-  query: "all",
+  query: "", //! don't change this value!! necessary for the correct operation of pagination
   isLoading: false,
+  isNew: false,
 };
 
 export const bookReducer = (store = defaultState, action) => {
@@ -33,6 +34,11 @@ export const bookReducer = (store = defaultState, action) => {
       return {
         ...store,
         isLoading: action.payload,
+      };
+    case BookActionTypes.SET_IS_NEW:
+      return {
+        ...store,
+        isNew: action.payload,
       };
     default:
       return store;
