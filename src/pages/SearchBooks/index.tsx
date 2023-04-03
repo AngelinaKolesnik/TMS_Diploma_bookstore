@@ -12,7 +12,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector'
 export const SearchBooks = () => {
   const dispatch = useDispatch();
   const { books, currentPage, query } = useTypedSelector(
-    (store: any) => store.books
+    (store) => store.books
   );
 
   useEffect(() => {

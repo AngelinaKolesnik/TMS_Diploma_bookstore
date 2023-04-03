@@ -11,7 +11,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 export const BooksList = () => {
   const dispatch = useDispatch();
   const { books, currentPage, totalCount, isNew, isLoading } = useTypedSelector(
-    (store: any) => store.books
+    (store) => store.books
   );
 
   // an array of 10 objects comes from the server
