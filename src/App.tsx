@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       {
-        path: Routes.NEW_RESEASES,
+        path: Routes.NEW_RELEASES,
         element: <NewReleases />,
       },
       {

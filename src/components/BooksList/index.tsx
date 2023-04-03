@@ -1,20 +1,21 @@
 import React from "react";
 import { Loading } from "../Loading";
 import { BookInfo } from "../../interfaces";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Book } from "../Book";
 import { setCurrentPage } from "../../store/actionCreators/booksActions";
 import { Pagination } from "@mui/material";
 import { ListOfBooks } from "./styles";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const BooksList = () => {
   const dispatch = useDispatch();
-  const { books, currentPage, totalCount, isNew, isLoading } = useSelector(
+  const { books, currentPage, totalCount, isNew, isLoading } = useTypedSelector(
     (store: any) => store.books
   );
 
-  // с сервера приходит массив из 10 объектов
-  // начиная со 101 стр возвращается 1 страница
+  // an array of 10 objects comes from the server
+  // starting from page 101, the first page is returned
   const getPagesCount =
     Math.ceil(totalCount / 10) <= 100 ? Math.ceil(totalCount / 10) : 100;
 
@@ -38,7 +39,7 @@ export const BooksList = () => {
           ))}
         </ListOfBooks>
       )}
-      {!isLoading && !!books.length && isNew == false && (
+      {!isLoading && !!books.length && isNew === false && totalCount > 10 && (
         <Pagination
           sx={{ display: "flex", justifyContent: "center" }}
           size="large"

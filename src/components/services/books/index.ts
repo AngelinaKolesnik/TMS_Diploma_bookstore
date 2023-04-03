@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setBooks } from "./booksActions";
+import { setBooks } from "../../../store/actionCreators/booksActions";
 
 export const getBooksSearch: any = (currentPage = 1, query: string) => {
   return async (dispatch: (arg0: { type: string; payload: any }) => void) => {

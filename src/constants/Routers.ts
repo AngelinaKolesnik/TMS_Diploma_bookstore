@@ -1,6 +1,6 @@
 export enum Routes {
   HOME = "/",
-  NEW_RESEASES = "/new",
+  NEW_RELEASES = "/new",
   SEARCH = "/search",
   CATEGORIES = "/categories",
   BASKET = "/basket",

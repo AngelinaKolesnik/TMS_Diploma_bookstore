@@ -23,14 +23,14 @@ export const Header = () => {
   return (
     <>
       <HeaderContainer>
-        <Link to={Routes.NEW_RESEASES}>
+        <Link to={Routes.NEW_RELEASES}>
           <HeaderLogo src={Logo} alt="Green Apple Books" />
         </Link>
         <MenuWrap>
           <Link to={Routes.SEARCH} style={{ textDecoration: "none" }}>
             <MenuSearch />
           </Link>
-          <Link to={Routes.NEW_RESEASES}>
+          <Link to={Routes.NEW_RELEASES}>
             <PersonOutlineOutlinedIcon
               sx={{ color: themeLight.lightGreen }}
               fontSize="large"
@@ -48,7 +48,7 @@ export const Header = () => {
           <Drawer anchor="right" open={isOpen} onClose={toggleIsOpen}>
             <MenuItems>
               <li>
-                <Link to={Routes.NEW_RESEASES} onClick={toggleIsOpen}>
+                <Link to={Routes.NEW_RELEASES} onClick={toggleIsOpen}>
                   <NewReleasesIcon />
                   <div>New Releases</div>
                 </Link>

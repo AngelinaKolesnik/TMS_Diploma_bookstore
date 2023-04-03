@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getBooksSearch } from "../../store/actionCreators";
+import { useDispatch } from "react-redux";
+import { getBooksSearch } from "../../components/services/books";
 import {
   setIsLoading,
   setIsNew,
 } from "../../store/actionCreators/booksActions";
 import { BooksList } from "../../components/BooksList";
 import { SearchZeroText } from "./styles";
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 export const SearchBooks = () => {
   const dispatch = useDispatch();
-  const { books, currentPage, query } = useSelector(
+  const { books, currentPage, query } = useTypedSelector(
     (store: any) => store.books
   );
 

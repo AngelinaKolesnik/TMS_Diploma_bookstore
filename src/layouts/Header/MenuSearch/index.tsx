@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MenuSearchIcon, MenuSearchInput, Search } from "./styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { getBooksSearch } from "../../../store/actionCreators";
+import { getBooksSearch } from "../../../components/services/books";
 import {
   setCurrentPage,
   setIsLoading,
@@ -32,14 +32,12 @@ export const MenuSearch = () => {
   const debouncedSearchTerm = useDebounce(searchValue, 500);
 
   useEffect(() => {
-	dispatch(setIsNew(false)) 
+    dispatch(setIsNew(false));
     !(searchValue.trim() == "") &&
-      dispatch(setIsLoading(true)) &&
-      dispatch(
-        getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase())
-      ) &&
-      dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase())) &&
-      dispatch(setCurrentPage(1));
+      (dispatch(setIsLoading(true)),
+      dispatch(getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase())),
+      dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase())),
+      dispatch(setCurrentPage(1)));
   }, [debouncedSearchTerm]);
 
   return (

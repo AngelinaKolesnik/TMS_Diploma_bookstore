@@ -4,7 +4,7 @@ const defaultState = {
   books: [],
   currentPage: 1,
   totalCount: 0,
-  query: "", //! не менять это значение!! нужно для корректной работы постраничнойпагинации
+  query: "", //! don't change this value!! necessary for the correct operation of pagination
   isLoading: false,
   isNew: false,
 };
