@@ -4,7 +4,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { HeaderContainer, HeaderLogo, MenuWrap } from "./styles";
+import { HeaderContainer, HeaderLogo, MenuWrap, SearchLink } from "./styles";
 import Logo from "../../images/logo.svg";
 import { themeLight } from "../../theme";
 import { MenuSearch } from "./MenuSearch";
@@ -27,9 +27,9 @@ export const Header = () => {
           <HeaderLogo src={Logo} alt="Green Apple Books" />
         </Link>
         <MenuWrap>
-          <Link to={Routes.SEARCH} style={{ textDecoration: "none" }}>
+          <SearchLink to={Routes.SEARCH}>
             <MenuSearch />
-          </Link>
+          </SearchLink>
           <Link to={Routes.NEW_RELEASES}>
             <PersonOutlineOutlinedIcon
               sx={{ color: themeLight.lightGreen }}

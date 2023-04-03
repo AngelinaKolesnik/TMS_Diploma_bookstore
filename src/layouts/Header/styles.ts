@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
@@ -27,4 +28,8 @@ export const MenuWrap = styled.div`
 
 export const MenuItems = styled.ul`
   display: flex;
+`;
+
+export const SearchLink = styled(Link)`
+  text-decoration: none;
 `;
