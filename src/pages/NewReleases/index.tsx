@@ -4,7 +4,7 @@ import {
   setIsLoading,
   setIsNew,
 } from "../../store/actionCreators/booksActions";
-import { getNewBooks } from "../../components/services/books/index";
+import { getNewBooks } from "../../services/books/index";
 import { BooksList } from "../../components/BooksList";
 
 export const NewReleases = () => {

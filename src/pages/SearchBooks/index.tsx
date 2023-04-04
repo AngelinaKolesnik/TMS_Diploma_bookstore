@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getBooksSearch } from "../../components/services/books";
+import { getBooksSearch } from "../../services/books";
 import {
   setIsLoading,
   setIsNew,
 } from "../../store/actionCreators/booksActions";
 import { BooksList } from "../../components/BooksList";
 import { SearchZeroText } from "./styles";
-import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const SearchBooks = () => {
   const dispatch = useDispatch();

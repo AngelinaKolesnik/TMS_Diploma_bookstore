@@ -10,5 +10,10 @@
     "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules"],
-  "include": ["src/components", "src/custom.d.ts", "src/layouts/Header"]
+  "include": [
+    "src/components",
+    "src/custom.d.ts",
+    "src/layouts/Header",
+    "src/services"
+  ]
 }
