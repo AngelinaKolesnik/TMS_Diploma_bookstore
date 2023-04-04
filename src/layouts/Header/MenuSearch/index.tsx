@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MenuSearchIcon, MenuSearchInput, Search } from "./styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { getBooksSearch } from "../../../components/services/books";
+import { getBooksSearch } from "../../../services/books";
 import {
   setCurrentPage,
   setIsLoading,
@@ -9,33 +9,26 @@ import {
   setQuery,
 } from "../../../store/actionCreators/booksActions";
 import { useDispatch } from "react-redux";
+import { useDebounce } from "../../../hooks/useDebounce";
+
+let controller = new AbortController();
 
 export const MenuSearch = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
-
-  function useDebounce(value: unknown, delay: number) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-
-    useEffect(() => {
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      return () => {
-        clearTimeout(handler);
-      };
-    }, [value]);
-
-    return debouncedValue;
-  }
-
   const debouncedSearchTerm = useDebounce(searchValue, 500);
 
   useEffect(() => {
     dispatch(setIsNew(false));
+    controller?.abort();
+    controller = new AbortController();
+    const { signal } = controller;
+
     !(searchValue.trim() == "") &&
       (dispatch(setIsLoading(true)),
-      dispatch(getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase())),
+		dispatch(
+			getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase(), signal)
+		 ),
       dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase())),
       dispatch(setCurrentPage(1)));
   }, [debouncedSearchTerm]);
