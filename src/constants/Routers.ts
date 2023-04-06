@@ -4,4 +4,5 @@ export enum Routes {
   SEARCH = "/search",
   CATEGORIES = "/categories",
   BASKET = "/basket",
+  BOOK = "/book",
 }

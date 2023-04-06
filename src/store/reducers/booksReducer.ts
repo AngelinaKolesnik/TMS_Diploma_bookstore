@@ -7,6 +7,7 @@ const defaultState = {
   query: "", //! don't change this value!! necessary for the correct operation of pagination
   isLoading: false,
   isNew: false,
+  isbn13: '',
 };
 
 export const bookReducer = (store = defaultState, action) => {
@@ -40,6 +41,11 @@ export const bookReducer = (store = defaultState, action) => {
         ...store,
         isNew: action.payload,
       };
+		case BookActionTypes.SET_ISBN13:
+			return {
+			  ...store,
+			  isbn13: action.payload,
+			};
     default:
       return store;
   }

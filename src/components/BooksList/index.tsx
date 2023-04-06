@@ -31,6 +31,7 @@ export const BooksList = () => {
         <ListOfBooks>
           {books.map((book: BookInfo) => (
             <Book
+              isbn13={book.isbn13}
               key={book.isbn13}
               title={book.title}
               price={book.price}

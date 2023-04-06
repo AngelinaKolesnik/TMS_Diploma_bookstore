@@ -4,4 +4,6 @@ export enum BookActionTypes {
   SET_QUERY = "SET_QUERY",
   SET_IS_LOADING = "SET_IS_LOADING",
   SET_IS_NEW = "SET_IS_NEW",
+  SET_ONE_BOOK = "SET_ONE_BOOK",
+  SET_ISBN13 = "SET_ISBN13",
 }

@@ -26,9 +26,9 @@ export const MenuSearch = () => {
 
     !(searchValue.trim() == "") &&
       (dispatch(setIsLoading(true)),
-		dispatch(
-			getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase(), signal)
-		 ),
+      dispatch(
+        getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase(), signal)
+      ),
       dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase())),
       dispatch(setCurrentPage(1)));
   }, [debouncedSearchTerm]);

@@ -9,6 +9,7 @@ import { NewReleases } from "./pages/NewReleases";
 import { SearchBooks } from "./pages/SearchBooks";
 import { Routes } from "./constants/Routers";
 import { Home } from "./pages/Home";
+import { BookPage } from "./pages/BookPage";
 
 const themeName: Record<UITheme, DefaultTheme> = {
   light: themeLight,
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: Routes.SEARCH,
         element: <SearchBooks />,
+      },
+      {
+        path: Routes.BOOK,
+        element: <BookPage />,
       },
     ],
   },
