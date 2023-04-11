@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <SearchBooks />,
       },
       {
-        path: Routes.BOOK,
+        path: `${Routes.BOOK}/:bookTitle`,
         element: <BookPage />,
       },
     ],

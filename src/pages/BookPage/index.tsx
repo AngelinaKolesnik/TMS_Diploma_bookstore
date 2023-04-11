@@ -2,37 +2,65 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { getDefiniteBook } from "../../services/books";
-import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
-import {
-  BookAuthor,
-  BookContainer,
-  BookDescription,
-  BookDescriptionText,
-  BookImg,
-  BookInfo,
-  BookInfoWrap,
-  BookRating,
-  BookSubtitle,
-  BookTitle,
-  BookWrap,
-} from "./styles";
-import {
-  setIsLoading,
-  setIsNew,
-} from "../../store/actionCreators/booksActions";
+import { BookContainer, BookImg, BookInfoWrap, BookWrap } from "./styles";
 import { Loading } from "../../components/Loading";
+import { BookHeader } from "./BookHeader";
+import { BookDescription } from "./BookDescription";
+import { IAboutBook } from "../../interfaces";
+import { AboutBook } from "./AboutBook";
+import { Keys } from "../../constants/LocalStorage";
 
 export const BookPage = () => {
   const dispatch = useDispatch();
-  const { isbn13 } = useTypedSelector((store) => store.books);
-  const info = useTypedSelector((store) => store.definiteBook.isbn13);
-  const { isLoading } = useTypedSelector((store) => store.definiteBook);
+  const isbn13 = useTypedSelector((store) => store.books.isbn13);
+  let info = useTypedSelector((store) => store.definiteBook.isbn13);
+  const isLoading = useTypedSelector((store) => store.definiteBook.isLoading);
+  console.log(info);
+
+  info != false &&
+    localStorage.setItem(Keys.DIFINITE_BOOK, JSON.stringify(info));
+  localStorage.getItem(Keys.DIFINITE_BOOK) &&
+    (info = JSON.parse(localStorage.getItem(Keys.DIFINITE_BOOK) || ""));
 
   useEffect(() => {
-    dispatch(setIsNew(false));
-    dispatch(setIsLoading(true));
-    dispatch(getDefiniteBook(isbn13));
+    isbn13 && dispatch(getDefiniteBook(isbn13));
   }, []);
+
+  const aboutBook: IAboutBook[] = [
+    {
+      param: "Price:",
+      info: info.price,
+    },
+    {
+      param: "Rating:",
+      info: info.rating,
+      icon: true,
+    },
+    {
+      param: "Author(s):",
+      info: info.authors,
+    },
+    {
+      param: "Publisher:",
+      info: info.publisher,
+    },
+    {
+      param: "Published:",
+      info: info.year,
+    },
+    {
+      param: "Pages:",
+      info: info.pages,
+    },
+    {
+      param: "ISBN-10:",
+      info: info.isbn10,
+    },
+    {
+      param: "ISBN-13:",
+      info: info.isbn13,
+    },
+  ];
 
   return (
     <>
@@ -40,49 +68,21 @@ export const BookPage = () => {
         <Loading />
       ) : (
         <BookContainer>
-          <BookTitle>{info.title}</BookTitle>
-          <BookSubtitle>{info.subtitle}</BookSubtitle>
+          <BookHeader title={info.title} subtitle={info.subtitle} />
           <BookWrap>
             <BookImg src={info.image} />
             <BookInfoWrap>
-              <BookInfo>
-                <div> Price </div>
-                <div>{info.price} </div>
-              </BookInfo>
-              <BookInfo>
-                <div> Rating </div>
-                <BookRating>
-                  {info.rating} <StarOutlineRoundedIcon />
-                </BookRating>
-              </BookInfo>
-              <BookInfo>
-                <div> Author(s) </div>
-                <BookAuthor>{info.authors} </BookAuthor>
-              </BookInfo>
-              <BookInfo>
-                <div> Publisher </div>
-                <div>{info.publisher} </div>
-              </BookInfo>
-              <BookInfo>
-                <div> Published </div>
-                <div>{info.year} </div>
-              </BookInfo>
-              <BookInfo>
-                <div> Pages </div>
-                <div>{info.pages} </div>
-              </BookInfo>
-              <BookInfo>
-                <div> ISBN-10 </div>
-                <div>{info.isbn10} </div>
-              </BookInfo>
-              <BookInfo>
-                <div> ISBN-13 </div>
-                <div>{info.isbn13} </div>
-              </BookInfo>
+              {aboutBook.map((item: IAboutBook, index) => (
+                <AboutBook
+                  key={index}
+                  param={item.param}
+                  info={item.info}
+                  icon={item.icon}
+                />
+              ))}
             </BookInfoWrap>
           </BookWrap>
-          <BookDescription>Description:</BookDescription>
-          <BookDescriptionText>{info.desc}</BookDescriptionText>
+          <BookDescription desc={info.desc} title="Description:" />
         </BookContainer>
       )}
     </>

@@ -6,20 +6,6 @@ export const BookContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const BookTitle = styled.h2`
-  font-size: 32px;
-  font-weight: 600;
-  color: ${(props) => props.theme.darkGreen};
-  margin: 15px 50px;
-`;
-
-export const BookSubtitle = styled.h3`
-  font-size: 28px;
-  color: ${(props) => props.theme.darkGreen};
-  font-style: italic;
-  margin: 0 50px 30px;
-`;
-
 export const BookWrap = styled.div`
   display: flex;
 `;
@@ -45,22 +31,10 @@ export const BookInfo = styled.div`
   align-items: center;
 `;
 
-export const BookDescription = styled.div`
-  font-size: 24px;
-  margin: 30px 0 15px;
-  font-weight: 600;
-`;
-
-export const BookDescriptionText = styled.div`
-  font-size: 21px;
-`;
-
-export const BookRating = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const BookAuthor = styled.div`
+export const BookInfoContainer = styled.div`
   width: 450px;
   text-align: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 `;

@@ -4,8 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { getBooksSearch } from "../../../services/books";
 import {
   setCurrentPage,
-  setIsLoading,
-  setIsNew,
   setQuery,
 } from "../../../store/actionCreators/booksActions";
 import { useDispatch } from "react-redux";
@@ -19,14 +17,12 @@ export const MenuSearch = () => {
   const debouncedSearchTerm = useDebounce(searchValue, 500);
 
   useEffect(() => {
-    dispatch(setIsNew(false));
     controller?.abort();
     controller = new AbortController();
-    const { signal } = controller;
+    const signal = controller.signal;
 
-    !(searchValue.trim() == "") &&
-      (dispatch(setIsLoading(true)),
-      dispatch(
+    !(searchValue.trim() === "") &&
+      (dispatch(
         getBooksSearch(1, searchValue.replace(/\s/g, "").toLowerCase(), signal)
       ),
       dispatch(setQuery(searchValue.replace(/\s/g, "").toLowerCase())),

@@ -1,13 +1,17 @@
+import {
+  IActionDefiniteBook,
+  IDefiniteBook,
+} from "../../interfaces";
 import { BookActionTypes } from "../types/books";
 
-const defaultState = {
+const defaultState: IDefiniteBook = {
   error: "",
   title: "",
   subtitle: "",
   authors: "",
   publisher: "",
   isbn10: "",
-  isbn13: "",
+  isbn13: [],
   pages: "",
   year: "",
   rating: "",
@@ -18,7 +22,10 @@ const defaultState = {
   isLoading: false,
 };
 
-export const definiteBookReducer = (store = defaultState, action) => {
+export const definiteBookReducer = (
+  store = defaultState,
+  action: IActionDefiniteBook
+) => {
   switch (action.type) {
     case BookActionTypes.SET_ONE_BOOK:
       return {
