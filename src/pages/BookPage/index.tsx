@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { getDefiniteBook } from "../../services/books";
@@ -9,56 +9,58 @@ import { BookDescription } from "./BookDescription";
 import { IAboutBook } from "../../interfaces";
 import { AboutBook } from "./AboutBook";
 import { Keys } from "../../constants/LocalStorage";
+import { getLocalStorageBookInfo } from "../../helpers/LocalStorage/getLocalStorageBookInfo";
 
 export const BookPage = () => {
   const dispatch = useDispatch();
   const isbn13 = useTypedSelector((store) => store.books.isbn13);
-  let info = useTypedSelector((store) => store.definiteBook.isbn13);
+  const info = useTypedSelector((store) => store.definiteBook.isbn13);
   const isLoading = useTypedSelector((store) => store.definiteBook.isLoading);
-  console.log(info);
 
-  info != false &&
-    localStorage.setItem(Keys.DIFINITE_BOOK, JSON.stringify(info));
-  localStorage.getItem(Keys.DIFINITE_BOOK) &&
-    (info = JSON.parse(localStorage.getItem(Keys.DIFINITE_BOOK) || ""));
+  const [data, setData] = useState(info);
 
   useEffect(() => {
     isbn13 && dispatch(getDefiniteBook(isbn13));
-  }, []);
+    info.isbn13 &&
+      localStorage.setItem(Keys.DIFINITE_BOOK, JSON.stringify(info));
+    localStorage.getItem(Keys.DIFINITE_BOOK) && !info.isbn13
+      ? setData(getLocalStorageBookInfo(Keys.DIFINITE_BOOK))
+      : setData(info);
+  }, [info.isbn13]);
 
   const aboutBook: IAboutBook[] = [
     {
       param: "Price:",
-      info: info.price,
+      info: data.price,
     },
     {
       param: "Rating:",
-      info: info.rating,
+      info: data.rating,
       icon: true,
     },
     {
       param: "Author(s):",
-      info: info.authors,
+      info: data.authors,
     },
     {
       param: "Publisher:",
-      info: info.publisher,
+      info: data.publisher,
     },
     {
       param: "Published:",
-      info: info.year,
+      info: data.year,
     },
     {
       param: "Pages:",
-      info: info.pages,
+      info: data.pages,
     },
     {
       param: "ISBN-10:",
-      info: info.isbn10,
+      info: data.isbn10,
     },
     {
       param: "ISBN-13:",
-      info: info.isbn13,
+      info: data.isbn13,
     },
   ];
 
@@ -68,11 +70,11 @@ export const BookPage = () => {
         <Loading />
       ) : (
         <BookContainer>
-          <BookHeader title={info.title} subtitle={info.subtitle} />
+          <BookHeader title={data.title} subtitle={data.subtitle} />
           <BookWrap>
-            <BookImg src={info.image} />
+            <BookImg src={data.image} />
             <BookInfoWrap>
-              {aboutBook.map((item: IAboutBook, index) => (
+              {aboutBook.map((item, index) => (
                 <AboutBook
                   key={index}
                   param={item.param}
@@ -82,7 +84,7 @@ export const BookPage = () => {
               ))}
             </BookInfoWrap>
           </BookWrap>
-          <BookDescription desc={info.desc} title="Description:" />
+          <BookDescription desc={data.desc} title="Description:" />
         </BookContainer>
       )}
     </>

@@ -31,15 +31,17 @@ export const getBooksSearch: any = (
   };
 };
 
-export const getNewBooks: any = () => {
+export const getNewBooks: any = (signal?: GenericAbortSignal) => {
   return async (dispatch: (arg0: { type: string; payload: any }) => void) => {
     try {
       dispatch(setIsNew(true));
       dispatch(setIsLoading(true));
-      const response = await axios.get("https://api.itbook.store/1.0/new");
+      const response = await axios.get("https://api.itbook.store/1.0/new", {
+        signal,
+      });
       dispatch(setBooks(response.data));
-    } catch (error) {
-      alert(error);
+	} catch (error) {
+      console.log(error);
     } finally {
       dispatch(setIsLoading(false));
     }

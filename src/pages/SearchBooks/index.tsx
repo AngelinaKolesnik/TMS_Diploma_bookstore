@@ -8,44 +8,45 @@ import {
   setQuery,
 } from "../../store/actionCreators/booksActions";
 import { Keys } from "../../constants/LocalStorage";
+import { getLocalStorageSearchPage } from "../../helpers/LocalStorage/getLocalStorageSearchPage";
+import { getLocalStorageSearchQuery } from "../../helpers/LocalStorage/getLocalStorageSearchQuery";
 import { getBooksSearch } from "../../services/books";
 
+let controller = new AbortController();
+
 export const SearchBooks = () => {
-  let currentPage = useTypedSelector((store) => store.books.currentPage);
-  let query = useTypedSelector((store) => store.books.query);
+  const currentPage = useTypedSelector((store) => store.books.currentPage);
+  const query = useTypedSelector((store) => store.books.query);
+  const books = useTypedSelector((store) => store.books.books);
   const dispatch = useDispatch();
 
-  // query
-  query != "" && localStorage.setItem(Keys.SEARCH_QUERY, JSON.stringify(query));
-  currentPage != 1 &&
-    localStorage.setItem(Keys.SEARCH_PAGE, JSON.stringify(currentPage));
-
-  const searchValue =
-    localStorage.getItem(Keys.SEARCH_QUERY) || "" != null
-      ? localStorage.getItem(Keys.SEARCH_QUERY) || ""
-      : "all";
-
-  localStorage.getItem(Keys.SEARCH_QUERY) &&
-    (query = JSON.parse(searchValue || ""));
-
-  //currentPage
-  const page = localStorage.getItem(Keys.SEARCH_PAGE);
-
-  localStorage.getItem(Keys.SEARCH_PAGE) &&
-    (currentPage = +JSON.parse(page || ""));
+  useEffect(() => {
+    controller?.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+    currentPage !== 1 &&
+      localStorage.setItem(Keys.SEARCH_PAGE, JSON.stringify(currentPage));
+    dispatch(getBooksSearch(currentPage, query, signal));
+  }, [currentPage]);
 
   useEffect(() => {
-    dispatch(setCurrentPage(+currentPage || 1));
+    controller?.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+    query !== "" &&
+      localStorage.setItem(Keys.SEARCH_QUERY, JSON.stringify(query));
+    dispatch(getBooksSearch(currentPage, query, signal));
+  }, [query]);
 
-    dispatch(setQuery(query !== "" ? "" + query : "all"));
-    dispatch(
-      getBooksSearch(currentPage || 1, query !== "" ? "" + query : "all")
-    );
+  useEffect(() => {
+    dispatch(setCurrentPage(+getLocalStorageSearchPage(Keys.SEARCH_PAGE)));
+    dispatch(setQuery(getLocalStorageSearchQuery(Keys.SEARCH_QUERY)));
   }, []);
 
   return (
     <>
-      {(query === "" || query === "all") && currentPage == 1 && (
+	 {!books.length && <SearchZeroText>Nothing found :(</SearchZeroText>}
+      {(query === "" || query === "all" || !books.length) && currentPage === 1 && (
         <SearchZeroText>Start searching!</SearchZeroText>
       )}
       <BooksList />

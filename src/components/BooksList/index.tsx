@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Loading } from "../Loading";
 import { BookInfo } from "../../interfaces";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,6 @@ import {
 import { Pagination } from "@mui/material";
 import { ListOfBooks } from "./styles";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { getBooksSearch } from "../../services/books";
-
 export const BooksList = () => {
   const dispatch = useDispatch();
   const { books, currentPage, totalCount, isNew, isLoading, query } =
@@ -26,10 +24,6 @@ export const BooksList = () => {
     query === "" && dispatch(setQuery("all"));
     dispatch(setCurrentPage(pageNumber));
   };
-
-  useEffect(() => {
-    dispatch(getBooksSearch(currentPage, query));
-  }, [currentPage]);
 
   return (
     <>
