@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ItemOfBooks = styled.div`
@@ -33,4 +34,8 @@ export const BookPrice = styled.div`
   margin-top: 10px;
   font-weight: 600;
   color: #703c2e;
+`;
+
+export const BookLink = styled(Link)`
+  text-decoration: none;
 `;

@@ -20,3 +20,11 @@ export const setIsNew = (isNew: boolean) => ({
   type: BookActionTypes.SET_IS_NEW,
   payload: isNew,
 });
+export const setIsbn13 = (isbn13: string) => ({
+	type: BookActionTypes.SET_ISBN13,
+	payload: isbn13,
+ });
+ export const setOneBook = (isbn13: string) => ({
+	type: BookActionTypes.SET_ONE_BOOK,
+	payload: isbn13,
+ });
