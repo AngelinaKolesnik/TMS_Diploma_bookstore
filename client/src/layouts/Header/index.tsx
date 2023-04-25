@@ -30,7 +30,7 @@ export const Header = () => {
           <SearchLink to={Routes.SEARCH}>
             <MenuSearch />
           </SearchLink>
-          <Link to={Routes.NEW_RELEASES}>
+          <Link to={Routes.AUTH}>
             <PersonOutlineOutlinedIcon
               sx={{ color: themeLight.lightGreen }}
               fontSize="large"
