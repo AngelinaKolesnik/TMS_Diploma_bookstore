@@ -14,12 +14,10 @@ export const Auth = () => {
       const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {
         withCredentials: true,
       });
-      console.log(response);
       localStorage.setItem(Keys.TOKEN, response.data.accessToken);
     } catch (e) {
       console.log(e.response?.data?.message);
-    } finally {
-    }
+	 }
   };
 
   // according to this logic add to fav and basket

@@ -33,7 +33,7 @@ $api.interceptors.response.use(
         localStorage.setItem(Keys.TOKEN, response.data.accessToken);
         return $api.request(originalRequest);
       } catch (e) {
-        console.log("НЕ АВТОРИЗОВАН");
+        console.log("The user is not authorized!");
       }
     }
     throw error;
