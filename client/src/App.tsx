@@ -10,6 +10,7 @@ import { SearchBooks } from "./pages/SearchBooks";
 import { Routes } from "./constants/Routers";
 import { Home } from "./pages/Home";
 import { BookPage } from "./pages/BookPage";
+import { Auth } from "./pages/Auth";
 
 const themeName: Record<UITheme, DefaultTheme> = {
   light: themeLight,
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: `${Routes.BOOK}/:bookTitle`,
         element: <BookPage />,
+      },
+      {
+        path: Routes.AUTH,
+        element: <Auth />,
       },
     ],
   },

@@ -5,4 +5,5 @@ export enum Routes {
   CATEGORIES = "/categories",
   BASKET = "/basket",
   BOOK = "/book",
+  AUTH = "/auth",
 }
